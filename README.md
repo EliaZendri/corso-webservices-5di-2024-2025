@@ -648,3 +648,6 @@ web Service --> Rest e Soap
 Restful --> e un api
 RESTFul --> SOAP / REST  
 HTML --> L'HyperText Markup Language
+
+Il WebService 
+creazioen di un file http per la richesta al sito  

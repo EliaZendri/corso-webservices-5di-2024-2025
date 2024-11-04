@@ -1,0 +1,6 @@
+GET http://localhost:4444
+
+###
+
+POST http://localhost:4444/init
+

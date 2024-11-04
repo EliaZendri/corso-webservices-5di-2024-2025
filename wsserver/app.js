@@ -9,6 +9,9 @@ const bodyParser = require('body-parser');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 
+//importo gli oggeti/funzioni dichiarati in altri file 
+const config = require('./config');
+
 // Creo l'applicazione express
 const app = express();
 
@@ -22,9 +25,23 @@ app.use(cors());
 //Pubbliclo il suito web nelòla cartella chiamta public
 app.use('',express.static('Public'));
 
+
+//implemetno il metodo per l'inazializazione del DB
+app.post('./init',(require,response) =>{
+//funzione di callBack mandata in esecuzione quadno un client invia una richiesta per L'URL
+let secret = request.body.secret;
+
+if(secret == config.initSecret){
+
+}
+else{
+    response.status(403).send('Secret non presente o errata');
+    //..toExponential. queste istruzioni non verrano mai eseguite
+}
+})
 // ... implemento metodi CRUD 
 
 // metto in ascolto la mia applicazione express sulla porta scielta per il WebService 4444
-const server = app.listen(4444, () => {
-    console.log('Server in ascolto sulla porta 4444 ....')
+const server = app.listen(config.port, () => {
+    console.log('Server in ascolto sulla porta '+ config.port +'....')
 })
