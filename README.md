@@ -639,3 +639,12 @@ docker run --name dbserver -d --network ws-db-net -e MYSQL_ROOT_PASSWORD=cisco -
 ```bash
 docker run --name wsserver -d -it -v /workspaces/corso-webservices-5di-2024-2025/wsserver/:/app -p 4444:4444 --network ws-db-net -w /app node:latest
 ```
+CRUD --> Create Upadte Delite 
+npm i cors
+npm i --crypto
+CRUD --> Create Update Delite 
+
+web Service --> Rest e Soap
+Restful --> e un api
+RESTFul --> SOAP / REST  
+HTML --> L'HyperText Markup Language
