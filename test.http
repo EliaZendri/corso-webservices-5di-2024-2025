@@ -4,3 +4,6 @@ GET http://localhost:4444
 
 POST http://localhost:4444/init
 
+{
+    "secret": "11111"
+}
