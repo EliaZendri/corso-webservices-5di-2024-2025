@@ -654,3 +654,6 @@ creazioen di un file http per la richesta al sito
 
 11/11/2024
 JavaScript --> Promise 
+Promise --> classe oggeto , ha 3 stati appena viene creata entra in stato pending e e in fase di elaborazione al termine del processo passera da pending a resolt, 
+se succede qualcosa di errato la promise passera in stato rejected .
+La funzione che contine l await deve essere una funzione assincrona.
