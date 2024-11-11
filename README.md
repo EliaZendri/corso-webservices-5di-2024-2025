@@ -651,3 +651,6 @@ HTML --> L'HyperText Markup Language
 
 Il WebService 
 creazioen di un file http per la richesta al sito  
+
+11/11/2024
+JavaScript --> Promise 
