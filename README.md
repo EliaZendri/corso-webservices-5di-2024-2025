@@ -657,3 +657,7 @@ JavaScript --> Promise
 Promise --> classe oggeto , ha 3 stati appena viene creata entra in stato pending e e in fase di elaborazione al termine del processo passera da pending a resolt, 
 se succede qualcosa di errato la promise passera in stato rejected .
 La funzione che contine l await deve essere una funzione assincrona.
+-sosituiamo la bodypars con la express 
+await fa si che prima di passare al istruzione successiva la funzione aspetti il completamento del operazione poi registro l inizializazzione
+del database nella tabella logs genero la versione cryptata della password di admin 
+-20$ ore 16:08
