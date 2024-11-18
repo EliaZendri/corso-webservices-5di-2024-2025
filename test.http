@@ -1,9 +1,22 @@
 GET http://localhost:4444
-
+Content-Type: application/json
 ###
 
 POST http://localhost:4444/init
 
 {
-    "secret": "11111"
+    "secret": "11111",
+    "adminpassword": "cisco"
 }
+
+###
+
+GET http://localhost:4444/users
+
+###
+
+GET http://localhost:4444/users/1
+
+###
+
+DELETE http://localhost:4444/users/1

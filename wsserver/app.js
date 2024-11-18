@@ -13,6 +13,10 @@ const fs = require('fs');
 const config = require('./config');
 const { send } = require('process');
 
+
+//elenco dei require per i route che gestiscono le diverse risorse del webservice
+const rUsers = require('./router');
+const { route } = require('./users');
 // Creo l'applicazione express
 const app = express();
 
@@ -41,9 +45,9 @@ if(secret == config.initSecret){
     let results = await connesione.query(scriptSQL);
     let passwordCryptata = bcrypt.hashSync(adminpassword, config.saltOrRounds);
     const insertSQL = "INSERT IN TO USER (username, password) VALUES ('admin', ?)";
-    results = connesione.query(insertSQL, passwordCryptata);
+    results = await connesione.query(insertSQL, passwordCryptata);
     const logSQL =" INSERT INTO logs (event, eventtime) VALUES ('inizializazzioen database', now())";
-    results = connesione.query(logSQL);
+    results = await connesione.query(logSQL);
 
     response.status(200).send('dfrjkhj');
 }
@@ -59,6 +63,8 @@ else{
     //..toExponential. queste istruzioni non verrano mai eseguite
 }
 })
+
+app.use('/users',  rUsers);
 // ... implemento metodi CRUD 
 
 // metto in ascolto la mia applicazione express sulla porta scielta per il WebService 4444
