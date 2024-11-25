@@ -23,13 +23,13 @@ router.post('./init',async (require,response) =>{
         const connesione = await mysql.createConnection(config.initDB);
         let results = await connesione.query(scriptSQL);
         let passwordCryptata = bcrypt.hashSync(adminpassword, config.saltOrRounds);
-        const insertSQL = "INSERT IN TO USER (username, password) VALUES ('admin', ?)";
+        const insertSQL = "INSERT IN TO user (username, password) VALUES ('admin', ?, 'administrator')";
         results = await connesione.query(insertSQL, passwordCryptata);
         const logSQL =" INSERT INTO logs (event, eventtime) VALUES ('inizializazzioen database', now())";
         results = await connesione.query(logSQL);
     
        return response.status(200).send('db inizializato');
-    }
+    }   
     catch (errore) {
             response.status(500).send(errore); 
     }

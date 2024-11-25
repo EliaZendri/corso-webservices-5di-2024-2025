@@ -33,6 +33,8 @@ app.use(cors());
 app.use('',express.static('Public'));
 
 app.use('/users',  rUsers);
+app.use('/init',  rUsers);
+app.use('/users',  rUsers);
 // ... implemento metodi CRUD 
 
 // metto in ascolto la mia applicazione express sulla porta scielta per il WebService 4444
