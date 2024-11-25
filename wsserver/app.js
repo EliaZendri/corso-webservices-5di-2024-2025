@@ -17,10 +17,12 @@ const { send } = require('process');
 //elenco dei require per i route che gestiscono le diverse risorse del webservice
 const rUsers = require('./router');
 const { route } = require('./users');
+//const rInit = 
 // Creo l'applicazione express
 const app = express();
 
 // Aggiungo moduli middleware alla catena di elaborazione
+app.use("./init");
 app.use(express.json());
 app.use(express.urlencoded({extended: false}));
 // Aggiungiamo la librearia CORS : Aggiugne nel intestazioen della Response una righa che 
@@ -29,40 +31,6 @@ app.use(cors());
 
 //Pubbliclo il suito web nelòla cartella chiamta public
 app.use('',express.static('Public'));
-
-
-//implemetno il metodo per l'inazializazione del DB
-app.post('./init',async (require,response) =>{
-//funzione di callBack mandata in esecuzione quadno un client invia una richiesta per L'URL
-let secret = request.body.secret;
-let adminpassword = require.body.adminpwd
-
-if(secret == config.initSecret){
-    try{
-    //carico lo script SQL dall filr system
-    const scriptSQL = fs.readFileSync('./script/init.sql', 'utf8');
-    const connesione = await mysql.createConnection(config.initDB);
-    let results = await connesione.query(scriptSQL);
-    let passwordCryptata = bcrypt.hashSync(adminpassword, config.saltOrRounds);
-    const insertSQL = "INSERT IN TO USER (username, password) VALUES ('admin', ?)";
-    results = await connesione.query(insertSQL, passwordCryptata);
-    const logSQL =" INSERT INTO logs (event, eventtime) VALUES ('inizializazzioen database', now())";
-    results = await connesione.query(logSQL);
-
-    response.status(200).send('dfrjkhj');
-}
-catch (errore) {
-        response.status(500).send(errore);  
-}
-finally{
-    await   connesione.end();
-}
-}
-else{
-    response.status(403).send('Secret non presente o errata');
-    //..toExponential. queste istruzioni non verrano mai eseguite
-}
-})
 
 app.use('/users',  rUsers);
 // ... implemento metodi CRUD 

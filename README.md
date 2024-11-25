@@ -663,4 +663,4 @@ del database nella tabella logs genero la versione cryptata della password di ad
 -20$ ore 16:08
 Programmazione assincrona --> si prevede una serei di funzioni , blochi di codcie e si prevede di eseguire i blocki di codice quando accade una cosa .
 nodemon app.js --> per eseguire il file e inizializare il database 
-Il ruter vieen usato ome miidlewer dell applicazione
+Il ruter vieen usato ome miidlewer dell applicazione 
