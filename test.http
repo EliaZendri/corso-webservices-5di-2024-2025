@@ -16,7 +16,22 @@ Content-Type: application/json
 ###
 
 GET http://localhost:4444/users
+Authorization: Bearer 
 
+###
+
+POST http://localhost:4444/users
+Authorization: Bearer 
+Content-Type: application/json
+
+{
+    "nome": "Elia",
+    "cognome": "Zendri",
+    "indirizzo": "..",
+    "username": "..",
+    "password": "..",
+    "ruolo": "..",
+}
 ###
 
 GET http://localhost:4444/users/1
