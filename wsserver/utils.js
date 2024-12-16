@@ -1,31 +1,43 @@
 const config = require('./config');
 
-function CorrectRequestData(body, table) {
-    // const fields = Object.keys(body);
-    // console.log(fields);
-    // const correnti = fields.filter(field => config.tabelle[table].includes(field));
-    // console.log(correnti);
-    // const oggettoCorretto = correnti.reduce((oggettoDaRicostruire, field) => {
-    //     oggettoDaRicostruire[field] = body[field]
-    //     return oggettoDaRicostruire
-    // }, {});
-    // console.log(oggettoCorretto);
-    // return;
+function correctRequestData(body, table) {
+/*     console.log(body);
+    const fields = Object.keys(body);
+    console.log(fields);    
+    const corretti = fields.filter(field => config.tabelle[table].includes(field));
+    console.log(corretti);
+    const oggettoCorretto = corretti.reduce((oggettoDaRicostruire, field) => {
+        oggettoDaRicostruire[field] = body[field]
+        return oggettoDaRicostruire;
+    }, {});
+    console.log(oggettoCorretto);
+    return; */
     return Object.keys(body)
-            .filter(field => config.tabelle[table].include(field))
+            .filter(field => config.tabelle[table].includes(field))
             .reduce((newObject, field) => {
                 newObject[field] = body[field];
-                return newObject;       
+                return newObject;
             }, {})
 }
 
-
-function getColums(dati) {
+function getColumns(dati) {
     return Object.keys(dati);
 }
 
 function getValues(dati) {
-    return Object.keys()
+    return Object.values(dati);
 }
 
-module.exports = { getFields }
+function setInsertFields(dati) {
+    // (nome, cognome, ....)
+    return '('+ getColumns(dati).join(', ') + ')';
+}
+
+function setInsertPlaceholders(dati) {
+    return '(' + getColumns(dati).map(() => '?').join(', ') + ')';
+}
+function setUpdateFileds(dati){
+    return getColumns(dati).map(field => field + ' = ?').join(', ');
+}
+
+module.exports = { correctRequestData, getColumns, getValues, setInsertFields, setInsertPlaceholders, setUpdateFileds}

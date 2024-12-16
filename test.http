@@ -33,7 +33,19 @@ Content-Type: application/json
     "ruolo": "..",
 }
 ###
+PUT http://localhost:4444/users/1
+Authorization: Bearer
+Content-Type: application/json
 
+{
+
+    "name":"Filippo",
+    "indirizzo": "Via pasqui",
+    "cellulare":"ddd43435",
+
+}
+
+###
 GET http://localhost:4444/users/1
 
 ###

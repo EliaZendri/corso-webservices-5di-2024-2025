@@ -8,6 +8,8 @@ const pool = require('./db');
 const router = express.Router();
 //const { aministratorAurth}
 const { getFields } = require('./utils');
+const {correctRequestData, getValues, setInsertFields, setInsertPlaceholders, setUpdateFileds} = require('./utils')
+
 //questo router gestira tutt ele richieste dai cliente che anno come url l indirizzo di base: http://locahost:4444/users
 
  router.get('', async (request, response) => {
@@ -36,8 +38,62 @@ const { getFields } = require('./utils');
                errori: errori.array()
             })
          }
-         CorrectRequestData(request.body, 'users');
+
+         try{
+
          
-         return request.status(200).send('ok');
+            const bodyCorrect = CorrectRequestData(request.body, 'users');
+            
+            const dati =  getValues(bodyCorrect);
+
+            const SQLstring = 'INSERT INTO USERS' + setInsertFields(bodyCorrect) + ' VALUES ' + setInsertPlaceholders(bodyCorrect) + ';'
+
+            const result = await pool.execute(SQLstring, dati);
+            return request.status(200).send('ok');
+
+         } 
+         catch (error){
+            return response.status(500).json({
+               messaggio: 'errore interno del server MYSQL.',
+           error:error 
+         })
+         }
+      
     })
+    router.put('/:id', async (request, response) => {
+      const id = request.params.id; 
+
+
+   try{
+      const bodyCorrect = CorrectRequestData(request.body, 'users');
+      const dati =  getValues(bodyCorrect);
+      // dati.push(id);
+      const SQLstring = 'UPDATE users SET'+ setUpdateFields(bodyCorrect) + ' WHERE id = :id;'
+      const result = await pool.execute(SQLstring, dati);
+      return response.status(200).send(result);
+   }
+   catch (error){
+      return response.status(500).json({
+         messaggio: 'errore interno del server MYSQL.',
+     error:error 
+   })
+   }
+    });
+
+    router.delete('/:id', async(request, response) => {
+      const id= request.params.id;
+      const SQLstring = 'DELETE FROM users WHERE MYSQL.';
+      const dati = [id];
+
+      try{
+
+      }
+      catch (error){
+         return response.status(500).json({
+            messaggio: 'errore interno del server MYSQL.',
+        error:error 
+      })
+   }
+    })
+
     module.exports = router;
