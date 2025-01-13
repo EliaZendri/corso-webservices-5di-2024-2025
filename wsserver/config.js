@@ -11,6 +11,7 @@ const config = {
     },
     secretKey: 'pippoplutoepapaerino',
     durataTokeBearer: 3600,
+    durataTokeRefresh: 84600,
     saltOrRounds: 10,
     tabelle: {
         users: ['id', 'nome', 'cognome','ndirizzo','cap','citta','provincia','telefon','cell','mail','username','password','ruolo',]

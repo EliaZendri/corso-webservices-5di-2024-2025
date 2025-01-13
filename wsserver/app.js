@@ -3,41 +3,46 @@ const express = require('express');
 // Ripeto la stessa operazione per le altre librerie
 // NB: per le libreris installate con npm install, fra apici si scrive solo il nomde della 
 // libreria (nome usato con npm) senza specificare il percorso
-const mysql = require('mysql2/promise');
 const cors = require('cors');
-const bcrypt = require('bcrypt');
-const jwt = require('jsonwebtoken');
-const fs = require('fs');
 
-//importo gli oggeti/funzioni dichiarati in altri file 
+// Import gli oggetti/funzioni dichiarate in altri file
+// Per i nostri oggetti, funzioni, costanti, ecc. è necessario
+// speficicare il percorso per raggiungere il file
 const config = require('./config');
-const { send } = require('process');
 
+const parseJSON = require('./json-check');
 
-//elenco dei require per i route che gestiscono le diverse risorse del webservice
-const rUsers = require('./router');
-const { route } = require('./users');
-//const rInit = 
+// Elenco dei require per i router che gestiscono le diverse risorse del mio webservice
+const rUsers = require('./users');
+const rInit = require('./init');
+const rLogin = require('./login');
+const rRefresh = require('./refresh');
+
 // Creo l'applicazione express
 const app = express();
 
 // Aggiungo moduli middleware alla catena di elaborazione
-app.use("./init");
 app.use(express.json());
 app.use(express.urlencoded({extended: false}));
-// Aggiungiamo la librearia CORS : Aggiugne nel intestazioen della Response una righa che 
-//consente ad applicazioni ospitate su altri domini di acedere al web service 
+
+// Aggiungo la libreria CORS: Aggiunge nell'intestazione della response
+// Una riga che consente ad applicazioni ospitate su altri domini di accedere al webservice
 app.use(cors());
 
-//Pubbliclo il suito web nelòla cartella chiamta public
-app.use('',express.static('Public'));
+// Controllo che i dati ricevuti dal server siano scritti in formato JSON corretto
+app.use(parseJSON);
 
-app.use('/users',  rUsers);
-app.use('/init',  rUsers);
-app.use('/users',  rUsers);
-// ... implemento metodi CRUD 
+// Pubblico il sito web di help contenuto nella cartella chiamata public
+app.use('', express.static('public'));
 
-// metto in ascolto la mia applicazione express sulla porta scielta per il WebService 4444
+// ... implemento metodi CRUD
+app.use('/init', rInit);
+app.use('/users', rUsers);
+app.use('/login', rLogin);
+app.use('/refresh', rRefresh);
+
+// Metto in ascolto la mia applicazione express sulla porta scelta per il webservice: 4444
+
 const server = app.listen(config.port, () => {
-    console.log('Server in ascolto sulla porta '+ config.port +'....')
+    console.log('Server in ascolto sulla porta ' + config.port + '...');
 })

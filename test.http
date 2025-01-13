@@ -1,53 +1,58 @@
 GET http://localhost:4444
-Content-Type: application/json
+
 ###
 
 POST http://localhost:4444/init
+Content-Type: application/json
+
+{
+    "secret": "12345",
+    "adminpassword": "cisco"
+}
 
 ###
 POST http://localhost:4444/login
 Content-Type: application/json
 
 {
-    "secret": "11111",
-    "adminpassword": "cisco"
+    "username": "admin",
+    "password": "cisco"
 }
 
 ###
 
 GET http://localhost:4444/users
-Authorization: Bearer 
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImFkbWluIiwicnVvbG8iOiJhZG1pbmlzdHJhdG9yIiwiaWF0IjoxNzM0MzU4OTQzLCJleHAiOjE3MzQzNjI1NDN9.G4fTzsG79Sqwu5t18HMTad9V14mle2U9Vqn4zmjWBrI
 
 ###
+GET http://localhost:4444/users/4
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImFkbWluIiwicnVvbG8iOiJhZG1pbmlzdHJhdG9yIiwiaWF0IjoxNzM0MzU4OTQzLCJleHAiOjE3MzQzNjI1NDN9.G4fTzsG79Sqwu5t18HMTad9V14mle2U9Vqn4zmjWBrI
 
+###
 POST http://localhost:4444/users
-Authorization: Bearer 
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImFkbWluIiwicnVvbG8iOiJhZG1pbmlzdHJhdG9yIiwiaWF0IjoxNzM0MzU4OTQzLCJleHAiOjE3MzQzNjI1NDN9.G4fTzsG79Sqwu5t18HMTad9V14mle2U9Vqn4zmjWBrI
 Content-Type: application/json
 
 {
-    "nome": "Elia",
-    "cognome": "Zendri",
-    "indirizzo": "..",
-    "username": "..",
-    "password": "..",
-    "ruolo": "..",
+    "username": "user2",
+    "password": "password",
+    "ruolo": "user",
+    "nome": "Andrea",
+    "indirizzo": "Via...",
+    "sdfsjhgfsj": "skjd fksdfjdks fj"
 }
 ###
-PUT http://localhost:4444/users/1
-Authorization: Bearer
+PUT http://localhost:4444/users/4
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImFkbWluIiwicnVvbG8iOiJhZG1pbmlzdHJhdG9yIiwiaWF0IjoxNzM0MzU4OTQzLCJleHAiOjE3MzQzNjI1NDN9.G4fTzsG79Sqwu5t18HMTad9V14mle2U9Vqn4zmjWBrI
 Content-Type: application/json
 
 {
-
-    "name":"Filippo",
-    "indirizzo": "Via pasqui",
-    "cellulare":"ddd43435",
-
+    "nome": "Valentina",    
+    "cell": "365263472"
 }
 
 ###
 GET http://localhost:4444/users/1
 
 ###
-
 DELETE http://localhost:4444/users/1
