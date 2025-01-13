@@ -32,5 +32,34 @@ CREATE TABLE logs (
     eventtime TIMESTAMP
 );
 
+CREATE TABLE ordini (
+    login TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
+    id INT PRIMARY KEY AUTO_INCREMENT NOT NULL,
+    id_user INT NOT NULL,
+    data DATE NOT NULL,
+    totale DECIMAL(10,2) NOT NULL,
+    FOREIGN KEY (id_user) REFERENCES users(id)
+    code VARCHAR(20)
+    );
+
+CREATE TABLE Spedizione(
+    id INT PRIMARY KEY AUTO_INCREMENT NOT NULL,
+    id_Ordine INT NOT NULL,
+    data DATE NOT NULL,
+    indirizzo VARCHAR(50),
+    citta VARCHAR(50),
+    stato CHAR(2),
+);
+
+CREATE TABLE Supporto (
+    id INT PRIMARY KEY AUTO_INCREMENT NOT NULL,
+    id_Ordine INT NOT NULL,
+    codiceOrdine VARCHAR(20) NOT NULL,
+    descrizione VARCHAR(200) NOT NULL,
+    dataSpedizione DATE NOT NULL,
+    dataRicezione DATE NOT NULL,
+    numeroSupporto INT NOT NULL,
+);
+
 INSERT INTO users (username, password) VALUES ('admin', 'cisco');
 INSERT INTO logs (event, eventtime) VALUES ('DB init', NOW());
