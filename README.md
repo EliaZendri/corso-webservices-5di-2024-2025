@@ -665,3 +665,8 @@ Programmazione assincrona --> si prevede una serei di funzioni , blochi di codci
 nodemon app.js --> per eseguire il file e inizializare il database 
 Il ruter vieen usato ome miidlewer dell applicazione 
 TokenBearer -> toke che dopo un timeout scade
+
+Fase di deploy = fase conclusiva dell appicalzione / rilascio dell app
+docker file --> creo una nuova immagine 
+docker compose --> mando in esecuzione i container
+YAML --> formato per la serializzazione di dati

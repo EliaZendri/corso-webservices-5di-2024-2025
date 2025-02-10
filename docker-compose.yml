@@ -1,0 +1,54 @@
+volumes:
+  db-storage:
+    driver: loca
+
+networks:
+  db-ws-net:
+    driver: bridge
+
+
+secrers:
+  root_db_passwrod:
+    file: .dbpassword
+  init_key:
+    file: .initkey
+  secret_key:
+    file: .secretkey
+
+services:
+  sql-server:
+      image: mysql:latest
+      container-name: sql-server
+      environment:
+        MYSQL_ROOT_PASSWORD_FILE: /run/secrets/root_db_passwrod
+      networks:
+        - db-ws-net
+      ports:
+        - 3306:3306
+      volumes:
+        - db-storage:/var/lib/mysql
+      secrets:
+        - root_db_passwrod
+      restart: always
+
+  ws-server:
+    image: node:latest
+    container-name: ws-server
+    networks:
+      - db-ws-net
+    tty: true
+    volumes:
+      - ./wsserver:/app
+    restart: always
+    depends_on:
+      - sql-server
+    secrets:
+      - root_db_passwrod
+      - init_key
+      - secret_key
+    working_dir: /app
+    ports:
+      - 4444:4444
+    
+
+
