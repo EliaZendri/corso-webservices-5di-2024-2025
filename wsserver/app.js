@@ -13,7 +13,7 @@ const config = require('./config');
 const dbpassword = fs.readFileSync('/run/secrets/root_db_password');
 config.initDB.password = dbpassword;
 const initkey = fs.readFileSync('/run/secret/init_key');
-const secretKey = fs.readFileSync('/run/');
+const secretKey = fs.readFileSync('/run/secret/secretkey');
 
 const parseJSON = require('./json-check');
 

@@ -7,7 +7,7 @@ networks:
     driver: bridge
 
 
-secrers:
+secrets:
   root_db_passwrod:
     file: .dbpassword
   init_key:
@@ -49,6 +49,8 @@ services:
     working_dir: /app
     ports:
       - 4444:4444
+    command: bash -c "npm install && npm install -g nodemon &&  nodemon app.js"
+    
     
 
 
