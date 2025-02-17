@@ -20,30 +20,28 @@ services:
       image: mysql:latest
       container-name: sql-server
       environment:
-        MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+        MYSQL_ROOT_PASSWORD_FILE: /run/secrets/root_db_passwrod
       networks:
         - db-ws-net
+      ports:
+        - 3306:3306
       volumes:
         - db-storage:/var/lib/mysql
       secrets:
         - root_db_passwrod
-      healthcheck:ù
-        test:["CMD","mysqladmin","ping","-h","localhost","-u","root";"--password=${MYSQL_ROOT_PASSWORD}"]
-        interval: 30s
-        timeout: 30s
-        retries: 5
-        start-period: 10s
       restart: always
 
   ws-server:
+    image: node:latest
     container-name: ws-server
-    build: ./wsserver
     networks:
       - db-ws-net
+    tty: true
+    volumes:
+      - ./wsserver:/app
     restart: always
     depends_on:
-    sql-server
-        coditions: service_healthy
+      - sql-server
     secrets:
       - root_db_passwrod
       - init_key
@@ -51,3 +49,8 @@ services:
     working_dir: /app
     ports:
       - 4444:4444
+    command: bash -c "npm install && npm install -g nodemon &&  nodemon app.js"
+    
+    
+
+
